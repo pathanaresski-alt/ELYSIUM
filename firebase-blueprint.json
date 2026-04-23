@@ -1,0 +1,78 @@
+{
+  "entities": {
+    "Service": {
+      "title": "Service",
+      "description": "Salon services offered to clients",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "category": { "type": "string", "enum": ["Ladies", "Gents", "Treatments", "Color"] },
+        "price": { "type": "number" },
+        "duration": { "type": "number" },
+        "description": { "type": "string" }
+      },
+      "required": ["name", "category", "price"]
+    },
+    "Booking": {
+      "title": "Booking",
+      "description": "Appointments scheduled by clients",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "serviceId": { "type": "string" },
+        "stylistId": { "type": "string" },
+        "date": { "type": "string", "format": "date" },
+        "time": { "type": "string" },
+        "status": { "type": "string", "enum": ["pending", "confirmed", "cancelled", "completed"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "serviceId", "date", "time"]
+    },
+    "Product": {
+      "title": "Product",
+      "description": "Products available in the online store",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "price": { "type": "number" },
+        "description": { "type": "string" },
+        "category": { "type": "string" },
+        "images": { "type": "array", "items": { "type": "string" } },
+        "stock": { "type": "number" }
+      },
+      "required": ["name", "price"]
+    },
+    "Review": {
+      "title": "Review",
+      "description": "Customer feedback and testimonials",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "userName": { "type": "string" },
+        "rating": { "type": "number" },
+        "comment": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "userName", "rating", "comment"]
+    },
+    "UserProfile": {
+      "title": "User Profile",
+      "description": "Private profile data for clients",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "phone": { "type": "string" },
+        "avatar": { "type": "string" }
+      },
+      "required": ["name", "email"]
+    }
+  },
+  "firestore": {
+    "services": { "schema": "Service", "description": "Available salon services" },
+    "bookings": { "schema": "Booking", "description": "Client appointments" },
+    "products": { "schema": "Product", "description": "Boutique products" },
+    "reviews": { "schema": "Review", "description": "Customer testimonials" },
+    "users/{userId}": { "schema": "UserProfile", "description": "User profile data" }
+  }
+}
